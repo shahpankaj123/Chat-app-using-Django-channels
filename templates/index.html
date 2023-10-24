@@ -21,13 +21,14 @@
                         <tbody>
                             <a href='{% url 'Logout' %}'><p><small class="p-1 shadow-sm float-right">logout</small>
                             </p></a>
-                            {% for user in users %}
+                            {% for profile in prof %}
                             <tr>
-                                <td><img src="{% static 'assets/dp.png' %}" alt="" class="profile-image rounded-circle">
+                                <td><img src="{{profile.profileimg.url}}" alt="" class="profile-image rounded-circle">
                                 </td>
-                                <td><a href="{% url 'chat' username=user.username %}">{{user.username}}</a></td>
+                                <td><a href="{% url 'chat' username=profile.user.username %}">{{profile.user.username}}</a></td>
                             </tr>
                             {% endfor %}
+                            
 
                             <!-- end -->
                         </tbody>

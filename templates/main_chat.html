@@ -68,14 +68,14 @@
                 <div class="contact-table-scroll">
                     <table class="table table-hover">
                         <tbody>
-                            {% for user in users %}
+                            {% for profile in prof %}
                             <tr>
-                                <td><img src="{% static 'assets/dp.png' %}" alt="" class="profile-image rounded-circle">
+                                <td><img src="{{profile.profileimg.url}}"  alt="" class="profile-image rounded-circle">
                                 </td>
-                                {% if user.userprofilemodel.online_status %}
-                                <td><a style="color: green" id="{{user.username}}_status" href="{% url 'chat' username=user.username %}">{{user.username}}</a></td>
+                                {% if profile.user.userprofilemodel.online_status %}
+                                <td><a style="color: green" id="{{profile.user.username}}_status" href="{% url 'chat' username=profile.user.username %}">{{profile.user.username}}</a></td>
                                 {% else %}
-                                <td><a style="color: grey" id="{{user.username}}_status" href="{% url 'chat' username=user.username %}">{{user.username}}</a></td>
+                                <td><a style="color: grey" id="{{profile.user.username}}_status" href="{% url 'chat' username=profile.user.username %}">{{profile.user.username}}</a></td>
                                 {% endif %}
                             </tr>
                             {% endfor %}
