@@ -4,6 +4,6 @@ from .views import *
 
 urlpatterns = [
     
-    path('',home),
+    path('',home,name='home'),
     path('chat/<str:username>',chatPage,name='chat'),
 ]

@@ -1,14 +1,18 @@
 from django.shortcuts import render
 from django.contrib.auth import get_user_model
 from .models import *
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 User=get_user_model()
 
+@login_required(login_url='Login')
 def home(request):
     users=User.objects.exclude(username=request.user.username)
     return render(request,'index.html',context={'users':users})
 
+
+@login_required(login_url='Login')
 def chatPage(request, username):
     user_obj=User.objects.get(username=username)
     users=User.objects.exclude(username=request.user.username)
