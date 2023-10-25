@@ -42,7 +42,7 @@
             <div class="col-sm-8">
                 <img src="{{user1.profileimg.url}}" alt="" class="profile-image rounded-circle">
                 <span class="ml-2">{{user1.user.username}}</span>
-                {% if user.userprofilemodel.online_status %}
+                {% if status.online_status %}
                 <small id="{{user1.user.username}}_small">Online</small>
                 {% else %}
                 <small id="{{user1.user.username}}_small">Offline</small>

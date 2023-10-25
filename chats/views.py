@@ -24,6 +24,7 @@ def home(request):
 @login_required(login_url='Login')
 def chatPage(request, username):
     user_obj=User.objects.get(username=username)
+    user_status=UserProfileModel.objects.get(user=user_obj)
     users=User.objects.get(username=request.user.username)
     user_prof=Profile.objects.get(user=users)
     profile=Profile.objects.exclude(user=users)
@@ -38,4 +39,4 @@ def chatPage(request, username):
 
     message_obj=ChatModel.objects.filter(thread_name=thread_name) 
     
-    return render(request,'main_chat.html',context={'prof':profile,'user1':profile_obj,'messages': message_obj,'userprof':user_prof,'user':user_obj})
+    return render(request,'main_chat.html',context={'prof':profile,'user1':profile_obj,'messages': message_obj,'userprof':user_prof,'user':user_obj,'status':user_status})

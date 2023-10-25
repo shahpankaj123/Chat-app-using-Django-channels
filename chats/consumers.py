@@ -1,9 +1,14 @@
 import json
 from asgiref.sync import async_to_sync
 from .models import *
+from django.contrib.auth import get_user_model
+
+
 
 #from channels.auth import AuthMiddleware
 from channels.generic.websocket import WebsocketConsumer
+
+User=get_user_model()
 
 
 class MyConsumer(WebsocketConsumer):
@@ -11,7 +16,7 @@ class MyConsumer(WebsocketConsumer):
         print("connected..")
         my_id = self.scope['user'].id
         
-        
+        self.id=my_id
         other_id=self.scope['url_route']['kwargs']['id']
         
         if int(my_id) > int(other_id):
@@ -19,6 +24,12 @@ class MyConsumer(WebsocketConsumer):
         else:
             self.room_name = f'{other_id}-{my_id}'
         self.group_name = 'chat_%s' % self.room_name 
+
+        user_obj=User.objects.get(id=my_id)
+        Userstatus=UserProfileModel.objects.get(user=user_obj)
+        Userstatus.online_status=True
+        Userstatus.save()
+        
 
         async_to_sync(self.channel_layer.group_add)(
             self.group_name,
@@ -58,7 +69,14 @@ class MyConsumer(WebsocketConsumer):
         
 
     def disconnect(self, close_code):
+        print(self.id)
+        user_obj=User.objects.get(id=self.id)
+        Userstatus=UserProfileModel.objects.get(user=user_obj)
+        Userstatus.online_status=False
+        Userstatus.save()
+
         self.close()
+
      
 
     

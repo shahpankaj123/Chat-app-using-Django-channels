@@ -3,6 +3,7 @@ from .models import *
 from django.contrib.auth.models import User,auth
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
+from chats.models import UserProfileModel
 
 # Create your views here.
 def Login(request):
@@ -38,6 +39,7 @@ def Register(request):
             login(request,user_login)
 
             user_obj=User.objects.get(username=username)
+            UserProfileModel.objects.create(user=user_obj)
 
             new_profile=Profile.objects.create(user=user_obj,profileimg=image)
             new_profile.save()
