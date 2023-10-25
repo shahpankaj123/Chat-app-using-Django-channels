@@ -25,12 +25,17 @@ def home(request):
 def chatPage(request, username):
     user_obj=User.objects.get(username=username)
     users=User.objects.get(username=request.user.username)
+    user_prof=Profile.objects.get(user=users)
     profile=Profile.objects.exclude(user=users)
+    profile_obj=Profile.objects.get(user=user_obj)
 
     if request.user.id > user_obj.id:
         thread_name = f'chat_{request.user.id}-{user_obj.id}'
     else:
         thread_name = f'chat_{user_obj.id}-{request.user.id}'
 
+    
+
     message_obj=ChatModel.objects.filter(thread_name=thread_name) 
-    return render(request,'main_chat.html',context={'prof':profile,'user':user_obj,'messages': message_obj})
+    
+    return render(request,'main_chat.html',context={'prof':profile,'user1':profile_obj,'messages': message_obj,'userprof':user_prof,'user':user_obj})

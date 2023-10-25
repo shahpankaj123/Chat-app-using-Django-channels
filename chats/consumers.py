@@ -10,7 +10,10 @@ class MyConsumer(WebsocketConsumer):
     def connect(self):
         print("connected..")
         my_id = self.scope['user'].id
+        
+        
         other_id=self.scope['url_route']['kwargs']['id']
+        
         if int(my_id) > int(other_id):
             self.room_name = f'{my_id}-{other_id}'
         else:
