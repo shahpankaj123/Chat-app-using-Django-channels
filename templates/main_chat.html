@@ -8,10 +8,13 @@
 {% endblock %}
 
 {% block content %}
+
 <div class="back-container">
+    
     <div class="container-fluid front-container">
-        <a href='{% url 'Logout' %}'><p><small class="p-1 shadow-sm float-right">logout</small>
-        </p></a>
+        <a href='{% url 'Logout' %}'><p style="color:red;"><small class="p-1 shadow-sm float-right">Logout</small></p></a>
+        <a href='{% url 'home' %}'><p style="color:red;"><small class="p-1 shadow-sm float-right">Back |</small></p></a>
+        
         <div class="back-top"></div>
         <div class="back-main"></div>
     </div>

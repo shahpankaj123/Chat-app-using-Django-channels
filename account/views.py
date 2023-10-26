@@ -13,7 +13,6 @@ def Login(request):
         user_login=authenticate(username=username,password=password)
         if user_login:
            login(request,user_login)
-           messages.info(request,'login succesfully')
            return redirect('home')
         messages.info(request,'login Unsuccesfully')
         return redirect('Login')
